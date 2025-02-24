@@ -1,41 +1,39 @@
 <h1 align="center">
-  Project Name or Logo
+  Streaming Tech TV+ Media Orchestrator
 </h1>
 
 <div align="center">
-  project name - quick salespitch why this is awesome. 
-  <br />
-  <br />
-  :book: <b><a href="https://eyevinn.github.io/{{repo-name}}/">Read the documentation (github pages)</a></b> :eyes:
+  Media Orchestrator for Streaming Tech TV+
   <br />
 </div>
 
 <div align="center">
 <br />
 
-[![npm](https://img.shields.io/npm/v/@eyevinn/{{repo-name}}?style=flat-square)](https://www.npmjs.com/package/@eyevinn/{{repo-name}})
-[![github release](https://img.shields.io/github/v/release/Eyevinn/{{repo-name}}?style=flat-square)](https://github.com/Eyevinn/{{repo-name}}/releases)
-[![license](https://img.shields.io/github/license/eyevinn/{{repo-name}}.svg?style=flat-square)](LICENSE)
-
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg?style=flat-square)](https://github.com/eyevinn/{{repo-name}}/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 [![made with hearth by Eyevinn](https://img.shields.io/badge/made%20with%20%E2%99%A5%20by-Eyevinn-59cbe8.svg?style=flat-square)](https://github.com/eyevinn)
 [![Slack](http://slack.streamingtech.se/badge.svg)](http://slack.streamingtech.se)
 
 </div>
 
-<!-- Add a description of the project here -->
+Media Orchestrator for Streaming Tech TV+ streaming service built on open web services in Eyevinn Open Source Cloud.
 
 ## Requirements
 
-<!--Add any external project dependencies such as node.js version etc here -->
+- Eyevinn Open Source Cloud account
 
 ## Installation / Usage
 
-<!--Add clear instructions on how to use the project here -->
+```bash
+% npm install
+```
 
-## Development
+Start orchestrator service
 
-<!--Add clear instructions on how to start development of the project here -->
+```bash
+ASSET_DB_URL=<asset-db-url> npm start
+```
+
+Go to http://localhost:8000/docs for Swagger API docs. Create a VOD pipeline in your Eyevinn OSC account with a POST to endpoint `/pipeline`
 
 ## Contributing
 
