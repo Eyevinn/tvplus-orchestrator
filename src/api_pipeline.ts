@@ -2,10 +2,12 @@ import { Context } from '@osaas/client-core';
 import { createVodPipeline, removeVodPipeline } from '@osaas/client-transcode';
 import { Type } from '@sinclair/typebox';
 import { FastifyPluginCallback } from 'fastify';
+import { setupListener } from './storage/listener';
 
 export interface PipelineOptions {
   name: string;
   ctx: Context;
+  onFileOnInput: (r: any, pipeline: any) => Promise<void>;
 }
 
 export const apiPipeline: FastifyPluginCallback<PipelineOptions> = (
@@ -26,9 +28,21 @@ export const apiPipeline: FastifyPluginCallback<PipelineOptions> = (
     },
     async (request, reply) => {
       try {
-        await createVodPipeline(opts.name, opts.ctx, {
+        const pipeline = await createVodPipeline(opts.name, opts.ctx, {
           createInputBucket: true
         });
+        if (pipeline.inputStorage) {
+          setupListener(
+            pipeline.inputStorage.name,
+            new URL(pipeline.inputStorage.endpoint),
+            pipeline.inputStorage.accessKeyId,
+            pipeline.inputStorage.secretAccessKey,
+            pipeline,
+            opts.onFileOnInput
+          );
+        } else {
+          throw new Error('Pipeline has no input storage');
+        }
         reply.status(201).send({ message: 'Pipeline created' });
       } catch (err: any) {
         reply.status(500).send({ message: err.message });
