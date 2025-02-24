@@ -1,3 +1,4 @@
+import { Context } from '@osaas/client-core';
 import * as Minio from 'minio';
 
 export async function setupListener(
@@ -6,7 +7,8 @@ export async function setupListener(
   accessKeyId: string,
   secretAccessKey: string,
   pipeline: any,
-  onNotification: (r: any, pipeline: any) => Promise<void>
+  ctx: Context,
+  onNotification: (r: any, pipeline: any, ctx: Context) => Promise<void>
 ) {
   const client = new Minio.Client({
     endPoint: endpoint.hostname,
@@ -22,7 +24,7 @@ export async function setupListener(
   }
   console.log('Listening for notifications');
   poller.on('notification', async (record) => {
-    await onNotification(record, pipeline);
+    await onNotification(record, pipeline, ctx);
     poller.stop();
   });
 }

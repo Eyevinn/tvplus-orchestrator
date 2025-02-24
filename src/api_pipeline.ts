@@ -7,7 +7,7 @@ import { setupListener } from './storage/listener';
 export interface PipelineOptions {
   name: string;
   ctx: Context;
-  onFileOnInput: (r: any, pipeline: any) => Promise<void>;
+  onFileOnInput: (r: any, pipeline: any, ctx: Context) => Promise<void>;
 }
 
 export const apiPipeline: FastifyPluginCallback<PipelineOptions> = (
@@ -38,6 +38,7 @@ export const apiPipeline: FastifyPluginCallback<PipelineOptions> = (
             pipeline.inputStorage.accessKeyId,
             pipeline.inputStorage.secretAccessKey,
             pipeline,
+            opts.ctx,
             opts.onFileOnInput
           );
         } else {

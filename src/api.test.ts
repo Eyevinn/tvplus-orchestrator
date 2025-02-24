@@ -4,7 +4,10 @@ jest.mock('@osaas/client-core');
 
 describe('api', () => {
   it('responds with hello, world!', async () => {
-    const server = api({ title: 'my awesome service', ctx: new Context() });
+    const server = api({
+      title: 'my awesome service',
+      ctx: new Context()
+    });
     const response = await server.inject({
       method: 'GET',
       url: '/'

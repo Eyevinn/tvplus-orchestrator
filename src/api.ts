@@ -68,7 +68,11 @@ export default (opts: ApiOptions) => {
 
   api.register(healthcheck, { title: opts.title });
   // register other API routes here
-  api.register(apiPipeline, { name: 'tvplus', ctx: opts.ctx, onFileOnInput });
+  api.register(apiPipeline, {
+    name: 'tvplus',
+    ctx: opts.ctx,
+    onFileOnInput
+  });
 
   return api;
 };
