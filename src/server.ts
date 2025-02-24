@@ -1,6 +1,8 @@
+import { Context } from '@osaas/client-core';
 import api from './api';
 
-const server = api({ title: '@eyevinn/typescript-nodejs' });
+const ctx = new Context();
+const server = api({ title: 'tvplus-orchestrator', ctx });
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8000;
 

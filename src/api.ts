@@ -5,6 +5,8 @@ import swaggerUI from '@fastify/swagger-ui';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { Static, Type } from '@sinclair/typebox';
 import { FastifyPluginCallback } from 'fastify';
+import { Context } from '@osaas/client-core';
+import { apiPipeline } from './api_pipeline';
 
 const HelloWorld = Type.String({
   description: 'The magical words!'
@@ -14,7 +16,11 @@ export interface HealthcheckOptions {
   title: string;
 }
 
-const healthcheck: FastifyPluginCallback<HealthcheckOptions> = (fastify, opts, next) => {
+const healthcheck: FastifyPluginCallback<HealthcheckOptions> = (
+  fastify,
+  opts,
+  next
+) => {
   fastify.get<{ Reply: Static<typeof HelloWorld> }>(
     '/',
     {
@@ -34,6 +40,7 @@ const healthcheck: FastifyPluginCallback<HealthcheckOptions> = (fastify, opts, n
 
 export interface ApiOptions {
   title: string;
+  ctx: Context;
 }
 
 export default (opts: ApiOptions) => {
@@ -60,6 +67,7 @@ export default (opts: ApiOptions) => {
 
   api.register(healthcheck, { title: opts.title });
   // register other API routes here
+  api.register(apiPipeline, { name: 'tvplus', ctx: opts.ctx });
 
   return api;
-}
+};
